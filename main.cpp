@@ -1,5 +1,4 @@
 
-#include <memory>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -72,8 +71,8 @@ int main()
     std::cout << "Please enter a seed (Integers only):";
     std::cin >> seed;
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    Scene scene(SCR_WIDTH, SCR_HEIGHT, camera, seed);
-    scene.loadShader("BlockShader.vert", "BlockShader.frag");
+    Scene scene(seed);
+    
 
     while (!glfwWindowShouldClose(window))
     {
@@ -91,7 +90,7 @@ int main()
 
 void render(Scene& scene, GLFWwindow* window)
 {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.45f, 0.76f, 0.82f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     scene.draw(camera);
@@ -108,7 +107,7 @@ void processInput(Scene& scene, GLFWwindow *window)
     float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
-    float cameraSpeed = 5.0f * deltaTime;
+    float cameraSpeed = 25.0f * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
@@ -129,6 +128,7 @@ void processInput(Scene& scene, GLFWwindow *window)
     {
         scene.moveCamera(cameraSpeed, 3, camera);
     }
+
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
